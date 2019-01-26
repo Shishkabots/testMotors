@@ -40,13 +40,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    WPI_VictorSPX side = new WPI_VictorSPX(2);
-    WPI_TalonSRX leftTalon = new WPI_TalonSRX(5);
+    WPI_VictorSPX side = new WPI_VictorSPX(4);
+    WPI_TalonSRX leftTalon = new WPI_TalonSRX(6);
     WPI_VictorSPX leftVictor = new WPI_VictorSPX(3);
     //SpeedControllerGroup m_left = new SpeedControllerGroup(leftTalon, leftVictor);
 
-    WPI_TalonSRX rightTalon = new WPI_TalonSRX(6);
-    WPI_VictorSPX rightVictor = new WPI_VictorSPX(4);
+    WPI_TalonSRX rightTalon = new WPI_TalonSRX(5);
+    WPI_VictorSPX rightVictor = new WPI_VictorSPX(2);
     ///SpeedControllerGroup m_right = new SpeedControllerGroup(rightTalon, rightVictor);
 
     m_oi = new OI();
@@ -54,13 +54,11 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
 
-    // 2 and 4
-    //rightVictor.set(ControlMode.PercentOutput, 0.2);
-    //side.set(ControlMode.PercentOutput, 0.2);
 
-    // 3 and 5
     leftVictor.set(ControlMode.PercentOutput, -0.2);
-    leftTalon.set(ControlMode.PercentOutput, -0.2);
+    //rightTalon.set(ControlMode.PercentOutput, -0.2);
+    //side.set(ControlMode.PercentOutput, -0.2);
+    rightVictor.set(ControlMode.PercentOutput, -0.2);
   }
 
   /**
