@@ -30,6 +30,13 @@ import com.ctre.phoenix.motorcontrol.can.*;
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
+  public static WPI_VictorSPX leftVictor;
+  public static WPI_VictorSPX rightVictor;
+  public static WPI_VictorSPX side;
+  public static WPI_TalonSRX rightTalon;
+  public static WPI_TalonSRX leftTalon;
+
+  public static double timestep;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -40,13 +47,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    WPI_VictorSPX side = new WPI_VictorSPX(4);
-    WPI_TalonSRX leftTalon = new WPI_TalonSRX(6);
-    WPI_VictorSPX leftVictor = new WPI_VictorSPX(3);
+    side = new WPI_VictorSPX(4);
+    leftTalon = new WPI_TalonSRX(6);
+    leftVictor = new WPI_VictorSPX(3);
     //SpeedControllerGroup m_left = new SpeedControllerGroup(leftTalon, leftVictor);
 
-    WPI_TalonSRX rightTalon = new WPI_TalonSRX(5);
-    WPI_VictorSPX rightVictor = new WPI_VictorSPX(2);
+    rightTalon = new WPI_TalonSRX(5);
+    rightVictor = new WPI_VictorSPX(2);
     ///SpeedControllerGroup m_right = new SpeedControllerGroup(rightTalon, rightVictor);
 
     m_oi = new OI();
@@ -54,11 +61,9 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
 
-
-    leftVictor.set(ControlMode.PercentOutput, -0.2);
+    timestep = 0;
     //rightTalon.set(ControlMode.PercentOutput, -0.2);
     //side.set(ControlMode.PercentOutput, -0.2);
-    rightVictor.set(ControlMode.PercentOutput, -0.2);
   }
 
   /**
@@ -140,6 +145,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    
   }
 
   /**
@@ -147,5 +153,35 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    boolean alternate = false;
+
+    if(alternate){
+      if(timestep % 10 <= 5){
+        leftVictor.set(ControlMode.PercentOutput, 0.2);
+        rightVictor.set(ControlMode.PercentOutput, 0.2);
+        
+        side.set(ControlMode.PercentOutput, 0);
+        leftTalon.set(ControlMode.PercentOutput, 0);
+      }
+      else{
+        side.set(ControlMode.PercentOutput, -0.2);
+        leftTalon.set(ControlMode.PercentOutput, -0.2);
+  
+        leftVictor.set(ControlMode.PercentOutput, 0);
+        rightVictor.set(ControlMode.PercentOutput, 0);
+      }
+      timestep += 0.02;
+    }
+    else{
+      leftVictor.set(ControlMode.PercentOutput, -0.3);
+      rightVictor.set(ControlMode.PercentOutput, -0.3);
+        
+      side.set(ControlMode.PercentOutput, -0.3);
+      leftTalon.set(ControlMode.PercentOutput, -0.3);
+    }
+    
+
+    // ran right side negative, right side positive, and left side positive, left side negative for 30 minutes
+    // right side negative got 30 minutes extra
   }
 }
