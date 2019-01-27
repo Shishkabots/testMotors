@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -36,10 +36,14 @@ public class Robot extends TimedRobot {
   public static WPI_TalonSRX rightTalon;
   public static WPI_TalonSRX leftTalon;
 
+  public static motors m_motors;
+
   public static double timestep;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  public static double speed = -0.2;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -60,6 +64,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    m_motors = new motors();
 
     timestep = 0;
     //rightTalon.set(ControlMode.PercentOutput, -0.2);
