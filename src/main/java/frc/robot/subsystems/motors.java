@@ -21,7 +21,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 public class motors extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public static double speed = 0;
+  public static double speed = 0.2;
   public static WPI_VictorSPX lv = Robot.leftVictor;
   public static WPI_VictorSPX rv = Robot.rightVictor;
   public static WPI_TalonSRX lt = Robot.leftTalon;
@@ -31,17 +31,21 @@ public class motors extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-  }
-
-  public static void fast() {
-    speed += -0.1;
     rt.set(ControlMode.PercentOutput, speed);
     lt.set(ControlMode.PercentOutput, speed);
     lv.set(ControlMode.PercentOutput, speed);
     rv.set(ControlMode.PercentOutput, speed);
   }
-  public static void slow() {
-    speed += 0.1;
+
+  public void fast() {
+    speed += -0.02;
+    rt.set(ControlMode.PercentOutput, speed);
+    lt.set(ControlMode.PercentOutput, speed);
+    lv.set(ControlMode.PercentOutput, speed);
+    rv.set(ControlMode.PercentOutput, speed);
+  }
+  public void slow() {
+    speed += 0.02;
     rt.set(ControlMode.PercentOutput, speed);
     lt.set(ControlMode.PercentOutput, speed);
     lv.set(ControlMode.PercentOutput, speed);

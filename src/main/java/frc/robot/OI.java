@@ -17,8 +17,8 @@ import frc.robot.subsystems.*;
  */
 public class OI {
   public Joystick xbox = new Joystick(0);
-  public Button boost = new JoystickButton(xbox,3);
-  public Button slow = new JoystickButton(xbox,4);
+  public Button boost = new JoystickButton(xbox,1);
+  public Button slow = new JoystickButton(xbox,2);
 
   public OI() {
     boost.whenReleased(new SpeedUp());

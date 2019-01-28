@@ -60,12 +60,12 @@ public class Robot extends TimedRobot {
     rightVictor = new WPI_VictorSPX(2);
     ///SpeedControllerGroup m_right = new SpeedControllerGroup(rightTalon, rightVictor);
 
+    m_motors = new motors();
     m_oi = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
 
-    m_motors = new motors();
 
     timestep = 0;
     //rightTalon.set(ControlMode.PercentOutput, -0.2);
